@@ -67,5 +67,5 @@ export async function getDatabase() {
   }
 
   const connectedClient = await clientPromise;
-  return connectedClient.db('bsrea_digital_portal');
+  return connectedClient.db('bsrea_portal');
 }
