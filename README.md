@@ -5,7 +5,9 @@
 [![Serverless](https://img.shields.io/badge/Serverless-Vercel%20%2F%20Netlify-black?style=for-the-badge&logo=vercel)](https://vercel.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
-An enterprise digital platform developed for the **Bangladesh Sustainable and Renewable Energy Association (BSREA)** to automate the issuance, registration, and instant online verification of **No Objection Certificates (NOC)**, equipment compliance approvals, and membership certificates using tamper-proof cryptographic QR codes.
+An enterprise digital platform developed for the **Bangladesh Sustainable and Renewable Energy Association (BSREA)** to automate the issuance, registration, and cryptographic verification of **No Objection Certificates (NOC)**, equipment compliance approvals, and institutional credentials using tamper-proof cryptographic QR codes.
+
+Engineered with a **Cybersecurity Dark Vault UI** (Midnight Obsidian & Electric Cyan), real-time optical camera scanner simulation, and SHA-256 digest breakdown.
 
 Developed by **MD. Mahamudul Hasan**.
 
@@ -22,19 +24,22 @@ Developed by **MD. Mahamudul Hasan**.
 
 ## 🌟 Key Features
 
-1. **Cryptographic QR Code Generation**: Automatically creates high-density SVG/Canvas QR codes containing tamper-resistant verification endpoints and SHA-256 document digests.
-2. **Instant Mobile & Web Verification**: Public officials, port authorities, and utility grid operators can scan the QR code with any camera or enter the document number to verify authenticity in real-time.
-3. **Dual Database Architecture**: 
+1. **Dual Verification Experience**:
+   - **Mode 1 (Manual Lookup)**: Instant credential search by Document ID (e.g. `NOC-2026-SOLAR-084`) or SHA-256 hash.
+   - **Mode 2 (Optical QR Scanner)**: Simulated real-time camera viewfinder reticle with sweeping cyan laser detection beam.
+2. **Cryptographic QR Code Generation**: Automatically creates high-density SVG/Canvas QR codes containing tamper-resistant verification endpoints and SHA-256 document digests.
+3. **Hardware-Accelerated Web Crypto API**: Generates real-time 256-bit hash digests on document creation and verifies tamper integrity.
+4. **Live Security Gateway Audit Log**: Streaming verification events with origin IP, latency metrics, and cryptographic audit badges.
+5. **Dual Database Architecture**: 
    - **MongoDB Atlas Cloud**: Connected to active Atlas Cluster via MongoDB Node.js Driver (`noc_certificates`, `noc_records`, `verification_logs`).
    - **MySQL / MariaDB**: Enterprise relational schema with foreign key constraints, issue/expiry tracking, and audit trails.
-4. **Administrative NOC Issuance**: Intuitive interface for issuing new certificates, attaching applicant data, renewable energy sectors (Solar, Wind, Biomass, Hydro, Energy Efficiency), and setting validity periods.
-5. **Print & PDF Export Ready**: Clean CSS print styling formatted for official association letterheads.
+6. **Print & PDF Export Ready**: Official holographic seal badge and printable certificate format.
 
 ---
 
 ## 🛠️ Technology Stack
 
-- **Frontend**: HTML5 Semantic markup, Vanilla CSS3 (Custom Emerald Renewable Design System), JavaScript (ES6+), Web Crypto API.
+- **Frontend**: HTML5 Semantic markup, High-Security Cyber Vault CSS3 (Midnight Obsidian `#070b14` & Electric Cyan `#06b6d4`), JavaScript (ES6+), Web Crypto API.
 - **Cloud Database**: MongoDB Atlas (Cloud Cluster, Global IP `0.0.0.0/0`, authenticated connection).
 - **Relational Backend**: PHP 8.2 (RESTful JSON APIs, PDO secure parameterized statements, MySQL/MariaDB).
 - **Serverless Runtime**: Node.js 20+ on Vercel / Netlify Serverless Functions (`api/*.js`).
