@@ -7,7 +7,7 @@
 
 An enterprise digital platform developed for the **Bangladesh Sustainable and Renewable Energy Association (BSREA)** to automate the issuance, registration, and instant online verification of **No Objection Certificates (NOC)**, equipment compliance approvals, and membership certificates using tamper-proof cryptographic QR codes.
 
-Developed by **MD. Mahamudul Hasan** (IT Officer Candidate).
+Developed by **MD. Mahamudul Hasan**.
 
 ---
 
@@ -108,9 +108,9 @@ Digital_NOC_QR_Verification_Portal/
 
 ---
 
-## 👨‍💻 Candidate Information
+## 👨‍💻 Author & Maintainer
 
-- **Name**: MD. Mahamudul Hasan (Mithun)
-- **Role**: IT Officer Candidate, BSREA
+- **Developer**: MD. Mahamudul Hasan (Mithun)
 - **GitHub**: [github.com/MHMITHUN](https://github.com/MHMITHUN)
+- **LinkedIn**: [linkedin.com/in/mahamudul0](https://linkedin.com/in/mahamudul0)
 - **Email**: mhmmithun1@gmail.com
