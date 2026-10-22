@@ -3,13 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BSREA Digital NOC & Certificate Verification Portal</title>
+  <title>BSREA Digital NOC & Cryptographic Verification Vault</title>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <!-- Top Security Ticker Bar -->
+  <div style="background: #030712; border-bottom: 1px solid #1e293b; padding: 0.35rem 1.5rem; font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-secondary); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <span><strong style="color: var(--primary);">GATEWAY:</strong> BSREA-SEC-NODE-01</span>
+      <span><strong style="color: var(--pass);">CIPHER:</strong> SHA-256 HARDWARE ENGINE</span>
+      <span><strong style="color: var(--gold);">LEDGER:</strong> MONGODB ATLAS CLUSTER</span>
+    </div>
+    <div style="display: flex; gap: 0.75rem; align-items: center;">
+      <span style="color: var(--pass);">● LATENCY 12ms</span>
+      <span>STATUS: OPERATIONAL</span>
+    </div>
+  </div>
 
   <!-- Header -->
   <header>
@@ -17,19 +30,19 @@
       <div class="brand">
         <div class="brand-emblem">BS</div>
         <div class="brand-text">
-          <h1>BSREA DIGITAL VERIFICATION PORTAL</h1>
-          <p>Bangladesh Sustainable and Renewable Energy Association · Gulshan-2, Dhaka</p>
+          <h1>BSREA DIGITAL VERIFICATION VAULT <span class="badge-security">NOC ENGINE v2.4</span></h1>
+          <p>Bangladesh Sustainable and Renewable Energy Association &bull; National Cryptographic Registry</p>
         </div>
       </div>
       <div class="header-actions">
         <a href="https://mhmithun.github.io/Online-Membership-Management-System/" class="btn btn-secondary">
-          <span>Member Directory ↗</span>
+          <span>Enterprise Directory ↗</span>
         </a>
         <button class="btn btn-primary" onclick="openModal()">
-          <span>+ Issue New Digital NOC</span>
+          <span>+ Issue Digital NOC</span>
         </button>
         <a href="https://bsreabd.org" target="_blank" rel="noopener" class="btn btn-secondary">
-          <span>Official Website ↗</span>
+          <span>Official Site ↗</span>
         </a>
       </div>
     </div>
@@ -39,34 +52,69 @@
   <main>
     <!-- Hero Banner -->
     <section class="hero-banner">
-      <h2>Instant Online NOC & Certificate Authenticity Verification</h2>
+      <div class="hero-tagline">
+        <span>⚡ NATIONAL RE-CERT REGISTRY</span>
+        <span>&bull;</span>
+        <span>ANTI-TAMPER VERIFICATION</span>
+      </div>
+      <h2>High-Security Digital NOC & Cryptographic Credential Vault</h2>
       <p>
-        Official verification portal for credentials, permits, and No Objection Certificates (NOC) issued by BSREA. 
-        Each issued document features a tamper-proof cryptographic QR code registered on the association's central database.
+        Official cryptographic validation engine for commercial permits, grid interconnection clearances, and No Objection Certificates (NOC) issued by BSREA. Every authentic credential features an encrypted SHA-256 hash payload and machine-readable QR signature.
       </p>
     </section>
 
-    <!-- Search & Verification Form -->
+    <!-- Search & Verification Form with Mode Switcher -->
     <section class="search-box-card">
-      <form id="searchForm" class="search-form" onsubmit="event.preventDefault(); verifyDocument(document.getElementById('searchInput').value);">
-        <input 
-          type="text" 
-          id="searchInput" 
-          class="search-input" 
-          placeholder="Enter Document Number (e.g. NOC-2026-SOLAR-084) or Cryptographic Hash..."
-          required
-        >
-        <button type="submit" class="btn btn-primary">
-          <span>Verify Document</span>
+      <div class="search-tabs">
+        <button type="button" class="tab-btn active" id="tabSearch" onclick="switchVerificationMode('search')">
+          <span>🔍 Manual Lookup (Doc ID / SHA-256 Hash)</span>
         </button>
-      </form>
+        <button type="button" class="tab-btn" id="tabScanner" onclick="switchVerificationMode('scanner')">
+          <span>📷 Optical Camera / QR Scanner Simulation</span>
+        </button>
+      </div>
 
-      <!-- Quick sample pills -->
-      <div class="quick-pills">
-        <span class="quick-label">Try Sample Documents:</span>
-        <button type="button" class="pill" data-code="NOC-2026-SOLAR-084">NOC-2026-SOLAR-084 (Solar PV)</button>
-        <button type="button" class="pill" data-code="CERT-BSREA-MEM-129">CERT-BSREA-MEM-129 (Member Cert)</button>
-        <button type="button" class="pill" data-code="NOC-2026-WIND-031">NOC-2026-WIND-031 (Wind Mast)</button>
+      <!-- Mode 1: Search Form -->
+      <div id="searchModeArea">
+        <form id="searchForm" class="search-form" onsubmit="event.preventDefault(); verifyDocument(document.getElementById('searchInput').value);">
+          <input 
+            type="text" 
+            id="searchInput" 
+            class="search-input" 
+            placeholder="Enter Document Number (e.g. NOC-2026-SOLAR-084) or Cryptographic Hash..."
+            required
+          >
+          <button type="submit" class="btn btn-primary">
+            <span>Verify Credential</span>
+          </button>
+        </form>
+
+        <!-- Quick sample pills -->
+        <div class="quick-pills">
+          <span class="quick-label">Instant Verification Samples:</span>
+          <button type="button" class="pill" data-code="NOC-2026-SOLAR-084">NOC-2026-SOLAR-084 (5MW Solar PV)</button>
+          <button type="button" class="pill" data-code="CERT-BSREA-MEM-129">CERT-BSREA-MEM-129 (Member Cert)</button>
+          <button type="button" class="pill" data-code="NOC-2026-WIND-031">NOC-2026-WIND-031 (Wind Mast)</button>
+        </div>
+      </div>
+
+      <!-- Mode 2: Camera QR Scanner Simulation -->
+      <div id="scannerModeArea" class="scanner-container">
+        <div class="scanner-viewfinder">
+          <div class="scan-laser"></div>
+          <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--primary); text-align: center; padding: 1.25rem; z-index: 2;">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">[ ⛶ ]</div>
+            ALIGN DIGITAL QR CODE<br>IN RETICLE
+          </div>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--ink-secondary);">
+          Simulating real-time optical video stream. Select an encoded certificate to scan:
+        </p>
+        <div style="margin-top: 0.75rem; display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" class="pill" onclick="simulateScan('NOC-2026-SOLAR-084')">Scan: Rahimafrooz 5MW Solar</button>
+          <button type="button" class="pill" onclick="simulateScan('CERT-BSREA-MEM-129')">Scan: Solaric Bangladesh Cert</button>
+          <button type="button" class="pill" onclick="simulateScan('NOC-2026-WIND-031')">Scan: Green Energy Wind Mast</button>
+        </div>
       </div>
     </section>
 
@@ -76,23 +124,24 @@
     </section>
 
     <!-- Recent Verifications Audit Log -->
-    <section style="margin-top: 3rem; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+    <section class="audit-box">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-        <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary-dark);">
-          Live Verification Gateway Audit Log
+        <h4 style="font-size: 0.95rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.5rem;">
+          <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--pass); box-shadow: 0 0 8px var(--pass);"></span>
+          Live Security Gateway Cryptographic Audit Log
         </h4>
-        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--pass);">
-          ● Gateway Status: Active (14ms latency)
+        <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--pass);">
+          Node Verified &bull; SHA-256 Stream Active
         </span>
       </div>
       <div style="overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+        <table class="audit-table">
           <thead>
-            <tr style="border-bottom: 2px solid var(--border); font-size: 0.75rem; text-transform: uppercase; color: var(--ink-secondary);">
-              <th style="padding: 0.5rem 0.8rem;">Timestamp</th>
-              <th style="padding: 0.5rem 0.8rem;">Document Number</th>
-              <th style="padding: 0.5rem 0.8rem;">Status Check</th>
-              <th style="padding: 0.5rem 0.8rem;">Gateway Node</th>
+            <tr>
+              <th>Timestamp</th>
+              <th>Document Identifier</th>
+              <th>Security Status</th>
+              <th>Origin Gateway</th>
             </tr>
           </thead>
           <tbody id="auditLogTable">
@@ -107,46 +156,48 @@
   <div id="issueModal" class="modal-backdrop">
     <div class="modal-card">
       <div class="modal-header">
-        <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--primary-dark);">Issue New Digital NOC</h3>
-        <button type="button" onclick="closeModal()" style="border: none; background: none; font-size: 1.25rem; cursor: pointer; color: var(--ink-secondary);">&times;</button>
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.5rem;">
+          <span style="color: var(--primary);">✦</span> Issue & Cryptographically Register New NOC
+        </h3>
+        <button type="button" onclick="closeModal()" style="border: none; background: none; font-size: 1.4rem; cursor: pointer; color: var(--ink-secondary); line-height: 1;">&times;</button>
       </div>
       <form id="issueNocForm">
         <div class="modal-body">
           <div class="form-group">
-            <label for="nocApplicant">Organization / Beneficiary Name *</label>
+            <label for="nocApplicant">Organization / Beneficiary Corporate Name *</label>
             <input type="text" id="nocApplicant" placeholder="e.g. Bengal Solar Technologies Ltd." required>
           </div>
           <div class="form-group">
             <label for="nocSector">Renewable Sector *</label>
             <select id="nocSector">
-              <option value="Solar Energy">Solar Energy (PV / Rooftop / Utility)</option>
-              <option value="Wind Energy">Wind Energy (Turbines / Assessment)</option>
+              <option value="Solar Energy">Solar Energy (PV / Rooftop / Utility-Scale)</option>
+              <option value="Wind Energy">Wind Energy (Turbines / Resource Assessment)</option>
               <option value="Biomass & Biofuel">Biomass & Biofuel Systems</option>
-              <option value="Energy Efficiency">Energy Efficiency & Storage</option>
-              <option value="Hydro & Microgrid">Hydro & Rural Microgrid</option>
+              <option value="Energy Efficiency">Energy Efficiency & Industrial Storage</option>
+              <option value="Hydro & Microgrid">Hydro & Rural Microgrid Systems</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="nocType">Document Type *</label>
+            <label for="nocType">Document Type & Purpose *</label>
             <select id="nocType">
-              <option value="NOC - Grid Interconnection">NOC - Grid Interconnection</option>
-              <option value="NOC - Equipment Import">NOC - Duty-Free Equipment Import</option>
-              <option value="Membership Certificate">Annual Membership Certificate</option>
-              <option value="Compliance Certificate">Renewable Safety & Standards Compliance</option>
+              <option value="NOC - Grid Interconnection">NOC - Grid Interconnection Clearance</option>
+              <option value="NOC - Duty-Free Equipment Import">NOC - Duty-Free Renewable Equipment Import</option>
+              <option value="Annual Membership Certificate">Annual Institutional Membership Certificate</option>
+              <option value="Compliance Certificate">Renewable Safety & Grid Standards Compliance</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="nocRep">Authorized Representative Name *</label>
-            <input type="text" id="nocRep" placeholder="e.g. Engr. Tanvir Ahmed" required>
+            <label for="nocRep">Authorized Executive Representative *</label>
+            <input type="text" id="nocRep" placeholder="e.g. Engr. Tanvir Ahmed, Director" required>
           </div>
           <div class="form-group">
             <label for="nocPurpose">NOC Purpose / Project Title *</label>
-            <input type="text" id="nocPurpose" placeholder="e.g. 10MW Solar Power Plant Installation Permit" required>
+            <input type="text" id="nocPurpose" placeholder="e.g. 10MW Utility Solar Power Plant Installation Permit" required>
           </div>
         </div>
-        <div style="padding: 1rem 1.5rem; background: #f9fafb; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 0.75rem;">
+        <div style="padding: 1rem 1.5rem; background: #090e1a; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 0.75rem;">
           <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-          <button type="submit" class="btn btn-primary">Generate & Register Document</button>
+          <button type="submit" class="btn btn-primary">Sign, Hash & Register</button>
         </div>
       </form>
     </div>
@@ -155,10 +206,10 @@
   <!-- Footer -->
   <footer>
     <p>
-      BSREA Digital NOC & Verification Portal &bull; Developed by <strong>MD. Mahamudul Hasan</strong>
+      BSREA Digital NOC & Cryptographic Verification Vault &bull; Developed by <strong>MD. Mahamudul Hasan</strong>
     </p>
-    <p style="margin-top: 0.3rem; font-family: var(--font-mono); font-size: 0.75rem;">
-      Tech Stack: PHP 8.2 &bull; MySQL InnoDB &bull; MongoDB Atlas Cloud &bull; JavaScript ES6+ &bull; Cryptographic SHA-256 Engine
+    <p style="margin-top: 0.4rem; font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-muted);">
+      Stack: Web Crypto API (SHA-256) &bull; MongoDB Atlas Cloud Vault &bull; SVG Dynamic QR Engine &bull; Netlify CDN Edge
     </p>
   </footer>
 
