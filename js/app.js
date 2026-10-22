@@ -298,6 +298,21 @@ async function handleIssueNOC(e) {
   saveDocuments(documentsDB);
   closeModal();
 
+  // Sync to MongoDB Atlas API in background
+  try {
+    fetch('/api/generate_noc', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        applicant,
+        sector,
+        representative: rep,
+        purpose,
+        docType
+      })
+    }).catch(() => {});
+  } catch(e) {}
+
   const issueForm = document.getElementById('issueNocForm');
   if (issueForm) issueForm.reset();
 
