@@ -45,6 +45,7 @@ const defaultDocuments = [
     hash: '9f2c81da540e1189ac3401fe7809a23bc110a99c87123ef6543210fedcba9876',
     status: 'AUTHENTIC & ACTIVE',
     type: 'NOC - Assessment Permit'
+  }
 ];
 
 function loadDocuments() {
