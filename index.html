@@ -48,7 +48,7 @@
 
     <!-- Search & Verification Form -->
     <section class="search-box-card">
-      <form id="searchForm" class="search-form">
+      <form id="searchForm" class="search-form" onsubmit="event.preventDefault(); verifyDocument(document.getElementById('searchInput').value);">
         <input 
           type="text" 
           id="searchInput" 
