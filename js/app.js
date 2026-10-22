@@ -1,11 +1,12 @@
 /**
  * BSREA Digital NOC & Certificate Verification Portal
  * Frontend Logic & Instant Verifier Engine
- * Author: MD. Mahamudul Hasan (IT Officer Candidate)
+ * Author: MD. Mahamudul Hasan
  */
 
-// In-Memory Database (Pre-seeded with real BSREA document records)
-let documentsDB = [
+const STORAGE_KEY_NOC = 'bsrea_noc_documents_v1';
+
+const defaultDocuments = [
   {
     docNo: 'NOC-2026-SOLAR-084',
     title: 'Commercial 5MW Solar PV Grid Interconnection Authorization NOC',
@@ -44,8 +45,27 @@ let documentsDB = [
     hash: '9f2c81da540e1189ac3401fe7809a23bc110a99c87123ef6543210fedcba9876',
     status: 'AUTHENTIC & ACTIVE',
     type: 'NOC - Assessment Permit'
-  }
 ];
+
+function loadDocuments() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY_NOC);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch (e) {}
+  return [...defaultDocuments];
+}
+
+function saveDocuments(data) {
+  documentsDB = data;
+  try {
+    localStorage.setItem(STORAGE_KEY_NOC, JSON.stringify(data));
+  } catch (e) {}
+}
+
+let documentsDB = loadDocuments();
 
 let auditLogs = [
   { time: 'Just now', doc: 'NOC-2026-SOLAR-084', result: 'Verified Authentic', ip: '103.114.98.24' },
@@ -275,18 +295,25 @@ async function handleIssueNOC(e) {
   };
 
   documentsDB.unshift(newDoc);
+  saveDocuments(documentsDB);
   closeModal();
+
+  const issueForm = document.getElementById('issueNocForm');
+  if (issueForm) issueForm.reset();
+
   document.getElementById('searchInput').value = docNo;
   verifyDocument(docNo);
   alert(`Digital NOC [${docNo}] successfully generated and indexed in database!`);
 }
 
 function openModal() {
-  document.getElementById('issueModal').classList.add('active');
+  const modal = document.getElementById('issueModal');
+  if (modal) modal.classList.add('active');
 }
 
 function closeModal() {
-  document.getElementById('issueModal').classList.remove('active');
+  const modal = document.getElementById('issueModal');
+  if (modal) modal.classList.remove('active');
 }
 
 // Initialization on DOM Load
@@ -294,10 +321,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchForm = document.getElementById('searchForm');
   const searchInput = document.getElementById('searchInput');
 
-  searchForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    verifyDocument(searchInput.value);
-  });
+  if (searchForm) {
+    searchForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      verifyDocument(searchInput.value);
+    });
+  }
 
   document.querySelectorAll('.pill').forEach(pill => {
     pill.addEventListener('click', () => {
@@ -311,6 +340,19 @@ document.addEventListener('DOMContentLoaded', () => {
   if (issueForm) {
     issueForm.addEventListener('submit', handleIssueNOC);
   }
+
+  // Close modal when clicking outside (on the backdrop)
+  const issueModal = document.getElementById('issueModal');
+  if (issueModal) {
+    issueModal.addEventListener('click', (e) => {
+      if (e.target === issueModal) closeModal();
+    });
+  }
+
+  // Close modal with Escape key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
 
   // Pre-load default document verification
   verifyDocument('NOC-2026-SOLAR-084');
