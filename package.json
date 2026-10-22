@@ -1,0 +1,12 @@
+{
+  "name": "digital-noc-qr-verification-portal",
+  "version": "1.0.0",
+  "description": "BSREA Digital NOC and Certificate Verification Portal with Cryptographic QR Validation",
+  "main": "index.html",
+  "scripts": {
+    "start": "node api/server.js"
+  },
+  "dependencies": {
+    "mongodb": "^6.12.0"
+  }
+}
