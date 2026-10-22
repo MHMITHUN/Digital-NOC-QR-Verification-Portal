@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BSREA Digital NOC & Certificate Verification Portal</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-emblem">BS</div>
+        <div class="brand-text">
+          <h1>BSREA DIGITAL VERIFICATION PORTAL</h1>
+          <p>Bangladesh Sustainable and Renewable Energy Association · Gulshan-2, Dhaka</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-primary" onclick="openModal()">
+          <span>+ Issue New Digital NOC</span>
+        </button>
+        <a href="https://bsreabd.org" target="_blank" class="btn btn-secondary">
+          <span>Official Website ↗</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+      <h2>Instant Online NOC & Certificate Authenticity Verification</h2>
+      <p>
+        Official verification portal for credentials, permits, and No Objection Certificates (NOC) issued by BSREA. 
+        Each issued document features a tamper-proof cryptographic QR code registered on the association's central database.
+      </p>
+    </section>
+
+    <!-- Search & Verification Form -->
+    <section class="search-box-card">
+      <form id="searchForm" class="search-form">
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-input" 
+          placeholder="Enter Document Number (e.g. NOC-2026-SOLAR-084) or Cryptographic Hash..."
+          required
+        >
+        <button type="submit" class="btn btn-primary">
+          <span>Verify Document</span>
+        </button>
+      </form>
+
+      <!-- Quick sample pills -->
+      <div class="quick-pills">
+        <span class="quick-label">Try Sample Documents:</span>
+        <button type="button" class="pill" data-code="NOC-2026-SOLAR-084">NOC-2026-SOLAR-084 (Solar PV)</button>
+        <button type="button" class="pill" data-code="CERT-BSREA-MEM-129">CERT-BSREA-MEM-129 (Member Cert)</button>
+        <button type="button" class="pill" data-code="NOC-2026-WIND-031">NOC-2026-WIND-031 (Wind Mast)</button>
+      </div>
+    </section>
+
+    <!-- Verification Result Area -->
+    <section id="verificationResult" class="verification-result">
+      <!-- Populated dynamically by app.js -->
+    </section>
+
+    <!-- Recent Verifications Audit Log -->
+    <section style="margin-top: 3rem; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary-dark);">
+          Live Verification Gateway Audit Log
+        </h4>
+        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--pass);">
+          ● Gateway Status: Active (14ms latency)
+        </span>
+      </div>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border); font-size: 0.75rem; text-transform: uppercase; color: var(--ink-secondary);">
+              <th style="padding: 0.5rem 0.8rem;">Timestamp</th>
+              <th style="padding: 0.5rem 0.8rem;">Document Number</th>
+              <th style="padding: 0.5rem 0.8rem;">Status Check</th>
+              <th style="padding: 0.5rem 0.8rem;">Gateway Node</th>
+            </tr>
+          </thead>
+          <tbody id="auditLogTable">
+            <!-- Populated dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal: Issue New NOC -->
+  <div id="issueModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--primary-dark);">Issue New Digital NOC</h3>
+        <button type="button" onclick="closeModal()" style="border: none; background: none; font-size: 1.25rem; cursor: pointer; color: var(--ink-secondary);">&times;</button>
+      </div>
+      <form id="issueNocForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="nocApplicant">Organization / Beneficiary Name *</label>
+            <input type="text" id="nocApplicant" placeholder="e.g. Bengal Solar Technologies Ltd." required>
+          </div>
+          <div class="form-group">
+            <label for="nocSector">Renewable Sector *</label>
+            <select id="nocSector">
+              <option value="Solar Energy">Solar Energy (PV / Rooftop / Utility)</option>
+              <option value="Wind Energy">Wind Energy (Turbines / Assessment)</option>
+              <option value="Biomass & Biofuel">Biomass & Biofuel Systems</option>
+              <option value="Energy Efficiency">Energy Efficiency & Storage</option>
+              <option value="Hydro & Microgrid">Hydro & Rural Microgrid</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="nocType">Document Type *</label>
+            <select id="nocType">
+              <option value="NOC - Grid Interconnection">NOC - Grid Interconnection</option>
+              <option value="NOC - Equipment Import">NOC - Duty-Free Equipment Import</option>
+              <option value="Membership Certificate">Annual Membership Certificate</option>
+              <option value="Compliance Certificate">Renewable Safety & Standards Compliance</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="nocRep">Authorized Representative Name *</label>
+            <input type="text" id="nocRep" placeholder="e.g. Engr. Tanvir Ahmed" required>
+          </div>
+          <div class="form-group">
+            <label for="nocPurpose">NOC Purpose / Project Title *</label>
+            <input type="text" id="nocPurpose" placeholder="e.g. 10MW Solar Power Plant Installation Permit" required>
+          </div>
+        </div>
+        <div style="padding: 1rem 1.5rem; background: #f9fafb; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 0.75rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Generate & Register Document</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      BSREA Digital NOC & Verification Portal &bull; Developed by <strong>MD. Mahamudul Hasan</strong> (IT Officer Candidate)
+    </p>
+    <p style="margin-top: 0.3rem; font-family: var(--font-mono); font-size: 0.75rem;">
+      Tech Stack: PHP 8.2 &bull; MySQL InnoDB &bull; JavaScript ES6+ &bull; Cryptographic SHA-256 Engine &bull; SVG QR Code System
+    </p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
